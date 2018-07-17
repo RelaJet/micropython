@@ -137,10 +137,16 @@ ifndef DEBUG
 endif
 	$(Q)$(SIZE) $$(find $(BUILD) -path "$(BUILD)/build/frozen*.o") $(PROG)
 
-clean: clean-prog
+staticlib: $(OBJ)
+	$(ECHO) "LIB $(PROG)"
+	$(Q)$(AR) rcs $(PROG).a $(OBJ)
+
+clean: clean-prog clean-staticlib
 clean-prog:
 	$(RM) -f $(PROG)
 	$(RM) -f $(PROG).map
+clean-staticlib:
+	$(RM) -f $(PROG).a
 
 .PHONY: clean-prog
 endif
